@@ -1,6 +1,7 @@
 const JWT = require('jsonwebtoken')
 const uid = require('uid-safe')
 const { User } = require('../models')
+const { Mistake } = require('../../helpers/Errors.js');
 
 async function genJWT(payload) {
     const jti = await uid(24);
@@ -29,24 +30,18 @@ exports.create = async (ctx, next) => {
 
     if (!accept_conditions) {
         console.log('Debe de aceptar los términos y condiciones');
-        ctx.status = 400; // Bad Request
-        ctx.body = { error: 'Debe de aceptar los términos y condiciones' };
-        return;
+        throw new Mistake(400, 'Debe de aceptar los términos y condiciones');
     }
 
     if (password !== password2) {
         console.log('Las contraseñas no coinciden');
-        ctx.status = 400;
-        ctx.body = { error: 'Las contraseñas no coinciden' };
-        return;
+        throw new Mistake(400, 'Las contraseñas no coinciden');
     }
 
     let exists = await User.getOneByEmail(email);
     if (exists) {
         console.log('Este correo ya está siendo utilizado');
-        ctx.status = 400;
-        ctx.body = { error: 'Este correo ya está siendo utilizado' };
-        return;
+        throw new Mistake(400, 'Este correo ya está siendo utilizado');
     }
 
     // Se crea el usuario y se genera un token si las verificaciones pasan
@@ -55,9 +50,7 @@ exports.create = async (ctx, next) => {
         user_auth = await User.createData(email, password);
     } catch (error) {
         console.log('Error al crear el usuario:', error);
-        ctx.status = 500; // Internal Server Error
-        ctx.body = { error: 'Error al crear el usuario' };
-        return;
+        throw new Mistake(500, 'Error al crear el usuario');
     }
 
     console.log(user_auth);
@@ -76,15 +69,11 @@ exports.login = async (ctx, next) => {
 	const auth_user = await User.getOneByEmail(email)
 
     if (!auth_user) {
-        console.log('El usuario no existe');
-        ctx.status = 400;
-        return;
+        throw new Mistake(400, 'El usuario no existe');
     }
 
-    if (!auth_user.validPassword(password)) {
-        console.log('Contraseña incorrecta');
-        ctx.status = 400;
-        return;
+    if (!auth_user.validPassword(password)) {      
+        throw new Mistake(400, 'Contraseña incorrecta');
     }
 
 	const token = await genJWT({

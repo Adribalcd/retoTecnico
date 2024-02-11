@@ -1,6 +1,8 @@
 const axios = require('axios');
 const { User } = require('../../../user/models');
 const { currencyExchange } = require('../../model');
+const { Mistake } = require('../../../helpers/Errors.js');
+
 
 exports.createExchangeRequest = async (ctx, next) => {
 
@@ -8,11 +10,9 @@ exports.createExchangeRequest = async (ctx, next) => {
     const monto_enviar = ctx.params.monto_enviar;
 
     if (!['compra', 'venta'].includes(tipo_de_cambio) || isNaN(parseFloat(monto_enviar)) || parseFloat(monto_enviar) <= 0) {
-        ctx.status = 400;
-        ctx.body = { error: 'Datos de entrada inválidos' };
-        return;
+        throw new Mistake(400, 'Datos de entrada inválidos');
     }
-
+    
     const user = await User.getOne_(ctx.state.user.id);
 
     try {
@@ -70,13 +70,12 @@ exports.getExchangeRequestDetails = async (ctx) => {
             ctx.status = 200;
             ctx.body = { message: "Detalle de la solicitud de cambio", requestDetails };
         } else {
-            ctx.status = 404;
-            ctx.body = { error: "Solicitud no encontrada o no pertenece al usuario" };
+            throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario");
         }
+        
     } catch (error) {
         console.error("Error al obtener los detalles de la solicitud de cambio: ", error);
-        ctx.status = 500;
-        ctx.body = { error: "Error interno del servidor" };
+        throw new Mistake(500, "Error interno del servidor");
     }
 };
 
@@ -90,13 +89,11 @@ exports.deleteExchangeRequest = async (ctx) => {
             ctx.status = 200;
             ctx.body = { message: "Solicitud de cambio eliminada exitosamente" };
         } else {
-            ctx.status = 404;
-            ctx.body = { error: "Solicitud no encontrada o no pertenece al usuario" };
+            throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario");
         }
     } catch (error) {
         console.error("Error al eliminar la solicitud de cambio: ", error);
-        ctx.status = 500;
-        ctx.body = { error: "Error interno del servidor" };
+        throw new Mistake(500, "Error interno del servidor");
     }
 };
 
