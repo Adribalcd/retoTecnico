@@ -25,7 +25,7 @@ class CurrencyExchangeRequest {
 
     static async  listExchangeRequestsForUser(userId) {
         try {
-            const requests =  await this.find({ userId }).sort({ createdAt: -1 });
+            const requests =  await this.find({ id_usuario: userId }).sort({ createdAt: -1 });
             return requests;
         } catch (error) {
             console.error("Error al listar:", error);
