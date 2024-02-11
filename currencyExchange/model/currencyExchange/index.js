@@ -33,12 +33,12 @@ class CurrencyExchangeRequest {
         }
     }
 
-    static async getExchangeRequestDetails(requestId, userId) {
+    static async findExchangeRequest(requestId, userId) {
         try {
-            const request = await this.findOne({ _id: requestId, id_usuario: userId });
-            return request;
+            const result = await this.findOne({ _id: requestId, id_usuario: userId });
+            return result;
         } catch (error) {
-            console.error("Error al listar la solicitud:", error);
+            console.error("Error al buscar la solicitud", error);
             throw error;
         }
     }
@@ -46,7 +46,7 @@ class CurrencyExchangeRequest {
     
     static async deleteExchangeRequest(requestId, userId) {
         try {
-            const result = await this.deleteOne({ _id: requestId, id_usuario: userId});
+            const result = await this.deleteOne({ _id: requestId, id_usuario: userId });
             return result;
         } catch (error) {
             console.error("Error al eliminar", error);
