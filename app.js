@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const mongoose = require('mongoose');
 const routes = require('./routes/')
+const { Mistake } = require('./helpers/Errors.js');
 /*
 const userRoutes = require('./user/routes/public/user.js');
 const currencyRoutes = require('./currencyExchange/routes/user/index.js');
@@ -31,6 +32,18 @@ app.use(async (ctx, next) => {
             }
         };
         ctx.app.emit('error', err, ctx);
+    }
+});
+
+//manejo de errores
+app.on('error', (err, ctx) => {
+    if (err instanceof Mistake) {
+        ctx.status = err.status;
+        ctx.body = { error: err.message };
+    } else {
+        ctx.status = 500;
+        ctx.body = { error: 'Error interno del servidor' };
+        console.error('Error inesperado:', err);
     }
 });
 

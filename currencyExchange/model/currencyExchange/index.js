@@ -25,7 +25,7 @@ class CurrencyExchangeRequest {
 
     static async  listExchangeRequestsForUser(userId) {
         try {
-            const requests =  await this.find({ userId }).sort({ createdAt: -1 });
+            const requests =  await this.find({ id_usuario: userId }).sort({ createdAt: -1 });
             return requests;
         } catch (error) {
             console.error("Error al listar:", error);
@@ -33,9 +33,9 @@ class CurrencyExchangeRequest {
         }
     }
 
-    static async getExchangeRequestDetails(requestId) {
+    static async getExchangeRequestDetails(requestId, userId) {
         try {
-            const request = await this.findById(requestId);
+            const request = await this.findOne({ _id: requestId, id_usuario: userId });
             return request;
         } catch (error) {
             console.error("Error al listar la solicitud:", error);
@@ -43,9 +43,10 @@ class CurrencyExchangeRequest {
         }
     }
     
-    static async deleteExchangeRequest(requestId) {
+    
+    static async deleteExchangeRequest(requestId, userId) {
         try {
-            const result = await this.deleteOne({ _id: requestId });
+            const result = await this.deleteOne({ _id: requestId, id_usuario: userId});
             return result;
         } catch (error) {
             console.error("Error al eliminar", error);

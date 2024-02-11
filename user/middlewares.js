@@ -1,16 +1,22 @@
 const jwt = require('koa-jwt')
 const { User } = require('./models/')
-const JWT_CUSTOMER_SECRET = process.env.JWT_CUSTOMER_SECRET || "SUPPA_SECRET";
+const { Mistake } = require('../helpers/Errors.js');
 
 exports.JWT = jwt({
-    secret:  process.env.JWT_CUSTOMER_SECRET//validacion
-})
+    secret: process.env.JWT_CUSTOMER_SECRET,
+    passthrough: true,
+});
 
 exports.user_token_validator = async (ctx, next) => {
-    const user = await User.getOne(ctx.state.user.id)
-    if (!user) {
-        ctx.status = 401
+    if (ctx.state.user) {
+        const user = await User.getOne(ctx.state.user.id);
+        if (!user) {
+            throw new Mistake(401, 'Usuario no encontrado');
+        } else {
+            await next();
+        }
     } else {
-        await next()
+        throw new Mistake(401, 'Token inválido o no proporcionado');
     }
-}
+};
+
