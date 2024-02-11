@@ -56,11 +56,12 @@ exports.listUserExchangeRequests = async (ctx) => {
     }
 };
 
-exports.getExchangeRequestDetails = async (ctx) => {
+
+exports.getExchangeRequestDetails = async (ctx,next) => {
     try {
         const { id } = ctx.params;
         const userId = ctx.state.user.id;
-        const requestDetails = await currencyExchange.getExchangeRequestDetails(id, userId);
+        const requestDetails = await currencyExchange.findExchangeRequest(id, userId);
 
         if (!requestDetails) {
             throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario");
@@ -70,24 +71,30 @@ exports.getExchangeRequestDetails = async (ctx) => {
         ctx.body = { message: "Detalle de la solicitud de cambio", requestDetails };
         
     } catch (error) {
-        throw new Mistake(500, "Error interno del servidor" + error);
+        if (error instanceof Mistake) {
+            ctx.status = error.status;
+            ctx.body = { error: error.message };
+        } else {
+            throw new Mistake(500, "Error interno del servidor" + error.message);
+        }
     }
-};
+}
 
 exports.deleteExchangeRequest = async (ctx) => {
     try {
         const { id } = ctx.params;
         const userId = ctx.state.user.id;
-        const requestToDelete = await currencyExchange.deleteExchangeRequest(id, userId);
-
+        
+        const requestToDelete = await currencyExchange.findExchangeRequest(id, userId);
         if (!requestToDelete) {
-            throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario");
+            throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario" );
         }
 
+        await currencyExchange.deleteExchangeRequest(id, userId);
         ctx.status = 200;
         ctx.body = { message: "Solicitud de cambio eliminada exitosamente" };
         
     } catch (error) {
-        throw new Mistake(500, "Error interno del servidor" + error);
+        throw new Mistake(500, "Error interno del servidor:" + error.message);
     }
-};
+}
