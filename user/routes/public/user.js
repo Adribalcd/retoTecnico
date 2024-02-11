@@ -1,4 +1,3 @@
-//define las rutas relacionadas con los usuarios (/register, /login).
 const Router = require('koa-joi-router')
 const Joi = Router.Joi
 const user_controller = require('../../controllers/')
@@ -10,7 +9,7 @@ router
     .prefix('/')
 
 router
-    .post('/', {
+    .post('/register', {
         meta: {
             swagger: {
                 summary: 'User account creation',
@@ -39,23 +38,6 @@ router
             user_controller.create,
         ]
     })
-
-/*
-router
-    .post('/logout', {
-        meta: {
-            swagger: {
-                summary: 'logout',
-                tags: ['AUTH_CLIENT'],
-            }
-        },
-        handler: [
-            auth_client_middleware.JWT,
-            auth_client_middleware.unvalidated_customer_token_guard,
-            user_controller.logout
-        ]
-    })
-*/
 
 router
     .post('/login', {
