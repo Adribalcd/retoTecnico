@@ -53,10 +53,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
-
-
-//pendiente realizar el despliegue en EC2
-//pendiente documentacion
-//eliminar carpetas y codigo no usado
-//subir a github
