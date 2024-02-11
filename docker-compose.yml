@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: node_app
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+      - MONGO_URI=mongodb://mongo:27017/prueba
+      - JWT_CUSTOMER_EXPIRE=365d
+      - JWT_CUSTOMER_SECRET=SUPPA_SECRET
+      - RECAPTCHA_KEY=6Lf02WAeAAAAACMkUkIZxeg5FfqOttiDoK6X9YuF
+
+  mongo:
+    container_name: mongo3
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+      - MONGO_URI=mongodb://host:port/dbname
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
