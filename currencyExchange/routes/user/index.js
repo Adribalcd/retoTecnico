@@ -12,7 +12,7 @@ router.post('/currencyExchange/:tipo_de_cambio/:monto_enviar', {
             tipo_de_cambio: Joi.string().valid('compra', 'venta').required(),
             monto_enviar: Joi.number().positive().required()
         },
-        continueOnError: false,
+        continueOnError: false
     },
     handler: [
         auth_user_middleware.JWT,
