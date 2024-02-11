@@ -11,18 +11,38 @@ Esta guía describe los pasos para desplegar la aplicación Node.js instanciada 
 **Pasos/Fases**
 
 ***1. Preparación de Entorno Local***
+    
     Finalidad: Verificar el correcto funcionamiento de la aplicación en el entorno local.
 
-    Para ello iniciamos clonando el repositorio en la máquina local:
+    - Para ello clonar el repositorio en la máquina local:
     
-    git clone https://github.com/Adrianabalcd/retoTecnico.git
+        git clone https://github.com/Adrianabalcd/retoTecnico.git
 
-    Verificamos el archivo docker-compose.yml en caso se requiera modificar la conexión a la base de datos a través de [MONGO_DB_URI].
+    - Verificar el archivo ***docker-compose.yml*** en caso se requiera modificar la conexión a la base de datos a través de [MONGO_DB_URI].
 
-    Ejecutamos la aplicación en Docker
-    docker-compose up -d
+    - Ejecutar la aplicación en Docker
+        
+        docker-compose up -d
 
-2. Preparación de entorno en la nube
 
-3. Despliegue en la Nube
-4. Verificación de Despliegue
+***2. Preparación de entorno en la nube***
+
+    - Crear una instancia de máquina virtual en el proveedor de la nub elegidoe.
+
+    - Instalar Docker y Docker Compose en la instancia.
+
+
+***3. Despliegue en la Nube***
+
+    - Conectarse a la máquina virtual mediante SSH.
+
+    - Clonar el repositorio en la máquina virtual.
+
+    - Iniciar la aplicación usando Docker Compose:
+        
+        docker-compose up -d
+
+
+***4. Verificación de Despliegue***
+
+    - Comprobar que la aplicación esté funcionando correctamente accediendo a través de la IP   pública de la máquina virtual.
