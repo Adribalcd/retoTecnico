@@ -38,6 +38,7 @@ exports.createExchangeRequest = async (ctx, next) => {
             user._id, tipo_de_cambio, monto_enviar, monto_recibir, tasaDeCambioId, purchase_price, sale_price
         );
         
+        ctx.status = 200;
         ctx.body = { monto_recibir };
 
     } catch (error) {
