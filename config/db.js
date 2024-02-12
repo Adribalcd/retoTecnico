@@ -8,6 +8,7 @@ exports.connect = async () => {
         });
 
         console.log(`MongoDB Conectado: ${conn.connection.host}`);
+        
     } catch (err) {
         console.error(`Error en la conexión a MongoDB: ${err.message}`);
         process.exit(1);

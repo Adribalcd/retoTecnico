@@ -11,9 +11,7 @@ exports.paramCaptcha = async (ctx, next) => {
 		const secret = process.env.RECAPTCHA_KEY;
 		const response = ctx.request.body.captcha || null
 		
-		let { data } = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${response}`,
-			{}
-		);
+		let { data } = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${response}`, {});
 
 		if (!data.success)
 			console.log("Datos invalidos")

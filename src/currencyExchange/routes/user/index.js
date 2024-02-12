@@ -49,10 +49,12 @@ router.get('/currencyExchanges',{
                     },
                 },
             }
-        }, handler: [
+        }, 
+        handler: [
             auth_user_middleware.JWT,
             auth_user_middleware.user_token_validator,
-            currencyExchangeRequestController.listUserExchangeRequests]
+            currencyExchangeRequestController.listUserExchangeRequests
+        ]
 });
 
 
@@ -76,8 +78,8 @@ router.get('/currencyExchange/:id', {
         auth_user_middleware.JWT,
         auth_user_middleware.user_token_validator,
         currencyExchangeRequestController.getExchangeRequestDetails,
-    ]}
-);
+    ]
+});
 
 router.delete('/currencyExchange/:id', {
     meta: {
@@ -98,6 +100,7 @@ router.delete('/currencyExchange/:id', {
     auth_user_middleware.JWT,
     auth_user_middleware.user_token_validator,
     currencyExchangeRequestController.deleteExchangeRequest,
-]});
+    ]
+});
 
 module.exports = router;

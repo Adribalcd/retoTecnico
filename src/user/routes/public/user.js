@@ -28,7 +28,7 @@ router
             output: {
                 201: {
                     body: {
-                        token: Joi.string().required(),
+                        token: Joi.string().required()
                     },
                 },
             }
@@ -51,13 +51,13 @@ router
             body: {
                 captcha: Joi.string().trim().required(),
                 email: Joi.string().lowercase().email().required(),
-                password: Joi.string().replace(/\s/g, '').required(),
+                password: Joi.string().replace(/\s/g, '').required()
             },
             type: 'json',
             output: {
                 200: {
                     body: {
-                        token: Joi.string().required(),
+                        token: Joi.string().required()
                     },
                 }
             }
