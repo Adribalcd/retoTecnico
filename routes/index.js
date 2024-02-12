@@ -4,8 +4,8 @@ const { SwaggerAPI } = require('koa-joi-router-docs-v2')
 const joi_router = Router()
 
 const all_modules = [
-    require('../user/routes/public/user.js'),
-    require('../currencyExchange/routes/user/index.js'),
+    require('../src/user/routes/public/user.js'),
+    require('../src/currencyExchange/routes/user/index.js'),
 ]
 
 const modules = [

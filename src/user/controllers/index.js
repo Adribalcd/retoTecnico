@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken')
 const uid = require('uid-safe')
 const { User } = require('../models')
-const { Mistake } = require('../../helpers/Errors.js');
+const { Mistake } = require('../../../helpers/Errors.js');
 
 async function genJWT(payload) {
     const jti = await uid(24);

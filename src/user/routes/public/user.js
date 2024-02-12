@@ -2,7 +2,7 @@ const Router = require('koa-joi-router')
 const Joi = Router.Joi
 const user_controller = require('../../controllers/')
 const router = Router()
-const { paramCaptcha } = require("../../../middlewares")
+const { paramCaptcha } = require("../../../../middlewares")
 
 
 router
