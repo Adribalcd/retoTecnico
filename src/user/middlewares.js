@@ -1,6 +1,6 @@
 const jwt = require('koa-jwt')
 const { User } = require('./models/')
-const { Mistake } = require('../helpers/Errors.js');
+const { Mistake } = require('../../helpers/Errors.js');
 
 exports.JWT = jwt({
     secret: process.env.JWT_CUSTOMER_SECRET,

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { User } = require('../../../user/models');
 const { currencyExchange } = require('../../model');
-const { Mistake } = require('../../../helpers/Errors.js');
+const { Mistake } = require('../../../../helpers/Errors.js');
 
 exports.createExchangeRequest = async (ctx, next) => {
     const tipo_de_cambio = ctx.params.tipo_de_cambio;
