@@ -50,8 +50,10 @@ exports.listUserExchangeRequests = async (ctx) => {
     try {
         const userId = ctx.state.user.id;
         const userRequests = await currencyExchange.listExchangeRequestsForUser(userId);
+
         ctx.status = 200;
         ctx.body = { message: "Solicitudes de cambio recuperadas exitosamente", userRequests };
+
     } catch (error) {
         throw new Mistake(500, "Error interno del servidor");
     }
@@ -87,11 +89,13 @@ exports.deleteExchangeRequest = async (ctx) => {
         const userId = ctx.state.user.id;
         
         const requestToDelete = await currencyExchange.findExchangeRequest(id, userId);
+        
         if (!requestToDelete) {
             throw new Mistake(404, "Solicitud no encontrada o no pertenece al usuario" );
         }
 
         await currencyExchange.deleteExchangeRequest(id, userId);
+
         ctx.status = 200;
         ctx.body = { message: "Solicitud de cambio eliminada exitosamente" };
         

@@ -17,6 +17,7 @@ async function genJWT(payload) {
         );
 
         return token;
+        
     } catch (error) {
         console.error("Error al generar el JWT: ", error);
         throw new Mistake(500, 'Error al generar el token JWT');

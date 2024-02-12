@@ -15,7 +15,9 @@ class User {
 
     static async getOneByEmail(email) {
         return this
-            .findOne({ email })
+            .findOne({
+                email
+            })
             .exec()
     }
 
@@ -28,8 +30,7 @@ class User {
     }
 
     static async getOne(_id) {
-        return this
-            .findOne({
+        return this.findOne({
                 _id
             })
             .exec()
