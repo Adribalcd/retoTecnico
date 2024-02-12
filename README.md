@@ -26,3 +26,6 @@ Esta guía proporciona los pasos necesarios para levantar la aplicación en un e
 ### **4. Verificar la Ejecución**
   Una vez que los contenedores estén ejecutándose, podrás verificar que la aplicación se está ejecutando correctamente accediendo a ella.
 
+  ***Ejemplo***
+    Prueba la siguiente ruta a través del navegador: http://localhost:3000/apiDocs 
+
