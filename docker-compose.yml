@@ -17,6 +17,7 @@ services:
       - JWT_CUSTOMER_EXPIRE=365d
       - JWT_CUSTOMER_SECRET=SUPPA_SECRET
       - RECAPTCHA_KEY=6Lf02WAeAAAAACMkUkIZxeg5FfqOttiDoK6X9YuF
+      - ENVIROMENT=development
 
   mongo:
     container_name: mongo3
