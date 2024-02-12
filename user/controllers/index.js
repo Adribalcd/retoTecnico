@@ -5,15 +5,13 @@ const { Mistake } = require('../../helpers/Errors.js');
 
 async function genJWT(payload) {
     const jti = await uid(24);
-    const JWT_CUSTOMER_EXPIRE = process.env.JWT_CUSTOMER_EXPIRE;
-    const JWT_CUSTOMER_SECRET = process.env.JWT_CUSTOMER_SECRET;
 
     try {
         const token = JWT.sign(
             payload,
-            JWT_CUSTOMER_SECRET,
+            process.env.JWT_CUSTOMER_SECRET,
             {
-                expiresIn: JWT_CUSTOMER_EXPIRE,
+                expiresIn: process.env.JWT_CUSTOMER_EXPIRE,
                 jwtid: jti,
             }
         );

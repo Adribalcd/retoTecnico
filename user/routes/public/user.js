@@ -13,7 +13,7 @@ router
         meta: {
             swagger: {
                 summary: 'User account creation',
-                tags: ['AUTH_USER'],
+                tags: ['user'],
             }
         },
         validate: {
@@ -44,7 +44,7 @@ router
         meta: {
             swagger: {
                 summary: 'User login',
-                tags: ['AUTH_USER'],
+                tags: ['user'],
             }
         },
         validate: {
@@ -69,3 +69,4 @@ router
     })
     
 module.exports = router
+

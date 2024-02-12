@@ -22,6 +22,7 @@
     "koa": "^2.15.0",
     "koa-bodyparser": "^4.4.1",
     "koa-joi-router": "^8.0.0",
+    "koa-joi-router-docs-v2": "^1.4.0",
     "koa-jwt": "^4.0.4",
     "koa-router": "^12.0.1",
     "mongoose": "^8.1.1",
